@@ -1,0 +1,4 @@
+{
+    "mongoURI":"mongodb+srv://bikash:<password>@cluster0.fs8aq.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "password":"XspvVgCAU8W7pQ8j"
+}

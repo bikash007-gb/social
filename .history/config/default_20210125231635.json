@@ -1,0 +1,5 @@
+{
+    "mongoURI":"mongodb+srv://bikash:XspvVgCAU8W7pQ8j@cluster0.fs8aq.mongodb.net/DevConnector?retryWrites=true&w=majority",
+    "password":"XspvVgCAU8W7pQ8j",
+    "jwtSecret":"ndksoajklnsdkalndsioljdie9ru4h"
+}
