@@ -144,63 +144,13 @@ router.post(
     }
   })
 
-  router.delete('/experience/:exp_id', auth, async (req, res) => {
-    try {
-      const foundProfile = await Profile.findOne({ user: req.user.id });
-  
-      foundProfile.experience = foundProfile.experience.filter(
-        (exp) => exp._id.toString() !== req.params.exp_id
-      );
-  
-      await foundProfile.save();
-      return res.status(200).json(foundProfile);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ msg: 'Server error' });
-    }
-  });
-
-  router.put(
-    '/education',
-    auth,
-    check('school', 'School is required').notEmpty(),
-    check('degree', 'Degree is required').notEmpty(),
-    check('fieldofstudy', 'Field of study is required').notEmpty(),
-    // check('from', 'From date is required and needs to be from the past')
-    //   .notEmpty()
-    //   .custom((value, { req }) => (req.body.to ? value < req.body.to : true)),
-    async (req, res) => {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-  
+  router.delete('/experience/:id',auth,async(req,res)=>{
       try {
-        const profile = await Profile.findOne({ user: req.user.id });
-  
-        profile.education.unshift(req.body);
-  
-        await profile.save();
-  
-        res.json(profile);
-      } catch (err) {
-        console.error(err.message);
+          await Profile.experience.findOneAndRemove({exp:req.profile.experience.id})
+          res.json({ msg:"experince deleted successfully"})
+      } catch (error) {
+        console.error(error.message);
         res.status(500).send('Server Error');
       }
-    }
-  );
-
-  router.delete('/education/:edu_id', auth, async (req, res) => {
-    try {
-      const foundProfile = await Profile.findOne({ user: req.user.id });
-      foundProfile.education = foundProfile.education.filter(
-        (edu) => edu._id.toString() !== req.params.edu_id
-      );
-      await foundProfile.save();
-      return res.status(200).json(foundProfile);
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ msg: 'Server error' });
-    }
-  });  
+  })
 module.exports=router
